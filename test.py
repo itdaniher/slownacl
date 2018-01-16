@@ -20,23 +20,23 @@ def check_funcs(its, a, b, arglens):
   for i in range(its):
     args = [r(x) for x in arglens]
     if a(*args) != b(*args):
-      print
-      print
-      print 'failed after %d tests. Failing input:' % i
-      print args
-      print
-      print repr(a(*args))
-      print repr(b(*args))
+      print()
+      print()
+      print('failed after %d tests. Failing input:' % i)
+      print(args)
+      print()
+      print(repr(a(*args)))
+      print(repr(b(*args)))
       return False
 
   return True
 
 def check(its, name, arglens):
-  print ('Checking %s...' % name),
+  print(('Checking %s...' % name), end=' ')
   if check_funcs(its, getattr(nacl, name), getattr(slownacl, name), arglens):
-    print 'ok'
+    print('ok')
   else:
-    print 'FAILED'
+    print('FAILED')
 
 if __name__ == '__main__':
   check(1024, 'hash_sha512', [(1, 100)])

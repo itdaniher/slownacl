@@ -1,7 +1,7 @@
-from util import xor, randombytes
-from salsa20 import core_hsalsa20, stream_xsalsa20
-from poly1305 import onetimeauth_poly1305, onetimeauth_poly1305_verify
-from curve25519 import smult_curve25519, smult_curve25519_base
+from .util import xor, randombytes
+from .salsa20 import core_hsalsa20, stream_xsalsa20
+from .poly1305 import onetimeauth_poly1305, onetimeauth_poly1305_verify
+from .curve25519 import smult_curve25519, smult_curve25519_base
 
 __all__ = ['secretbox_xsalsa20poly1305', 'secretbox_xsalsa20poly1305_open', 'box_curve25519xsalsa20poly1305_keypair', 'box_curve25519xsalsa20poly1305', 'box_curve25519xsalsa20poly1305', 'box_curve25519xsalsa20poly1305_open', 'box_curve25519xsalsa20poly1305_beforenm', 'box_curve25519xsalsa20poly1305_afternm', 'box_curve25519xsalsa20poly1305_open_afternm']
 
@@ -34,7 +34,7 @@ def box_curve25519xsalsa20poly1305_open(c, n, pk, sk):
       c, n, box_curve25519xsalsa20poly1305_beforenm(pk, sk))
 
 def box_curve25519xsalsa20poly1305_beforenm(pk, sk):
-  return core_hsalsa20('\0' * 16, smult_curve25519(sk, pk))
+  return core_hsalsa20(b'\0' * 16, smult_curve25519(sk, pk))
 
 def box_curve25519xsalsa20poly1305_afternm(m, n, k):
   return secretbox_xsalsa20poly1305(m, n, k)

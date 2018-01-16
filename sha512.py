@@ -1,6 +1,6 @@
 import hashlib
-from util import xor
-from verify import verify32
+from .util import xor
+from .verify import verify32
 
 __all__ = ['hash_sha512', 'auth_hmacsha512', 'auth_hmacsha512_verify']
 

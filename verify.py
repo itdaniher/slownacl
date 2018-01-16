@@ -1,3 +1,4 @@
+from functools import reduce
 __all__ = ['verify16', 'verify32']
 
 def verify16(a, b):

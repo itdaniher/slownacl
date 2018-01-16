@@ -1,5 +1,5 @@
 import struct
-from util import xor
+from .util import xor
 
 __all__ = ['core_hsalsa20', 'stream_salsa20', 'stream_salsa20_xor', 'stream_xsalsa20', 'stream_xsalsa20_xor']
 
@@ -40,7 +40,7 @@ def rounds(s, n, add=True):
   if add:
     for i in range(16): s[i] = (s[i] + s1[i]) & 0xffffffff
 
-o = struct.unpack('<4I', 'expand 32-byte k')
+o = struct.unpack('<4I', b'expand 32-byte k')
 
 def block(n, k):
   s = [0] * 16
@@ -70,10 +70,10 @@ def stream_salsa20(l, n, k):
   n = struct.unpack('<2I', n)
   k = struct.unpack('<8I', k)
   n = list(n) + [0, 0]
-  for i in xrange(0, (l + 63) / 64):
+  for i in range(0, (l + 63) // 64):
     n[2], n[3] = i & 0xffffffff, i >> 32
     output.append(block(n, k))
-  return ''.join(output)[:l]
+  return b''.join(output)[:l]
 
 def stream_salsa20_xor(m, n, k):
   return xor(m, stream_salsa20(len(m), n, k))
